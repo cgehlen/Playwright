@@ -1,6 +1,67 @@
 import { test, expect } from '@playwright/test';
 let userId: string;
 
+test.describe.serial('CRUD Usuário', () => {
+
+  test('Cadastrar usuário', async ({ request }) => {
+    const response = await request.post('/usuarios', {
+      data: {
+        nome: "Shakira Ojos Asi",
+        email: "shakiojos@qa.com",
+        password: "1234",
+        administrador: "true"
+      }
+    });
+    const body = await response.json();
+    userId = body._id; 
+    console.log(userId);
+    expect(body.message).toBe('Cadastro realizado com sucesso');
+
+    const getResponse = await request.get(`/usuarios/${userId}`);    
+    console.log(getResponse);
+  });
+
+  test('Atualizar usuário - altera nome', async ({ request }) => {
+    console.log(userId);
+    const response = await request.put(`/usuarios/${userId}`, {
+      data: {
+        nome: "Loca Shakira",
+        email: "shakiojos@qa.com",
+        password: "1234",
+        administrador: "true"
+      }  
+    });
+    expect(response.status()).toBe(400);
+    const body = await response.json();
+    expect(body.message).toBe('Este email já está sendo usado');
+    
+  });
+
+  test('Atualizar usuário - alterar nome e email', async ({ request }) => {
+    const response = await request.put(`/usuarios/${userId}`, {
+      data: {
+        nome: "Shakira Loca",
+        email: "localoca@qa.com",
+        password: "1234",
+        administrador: "true"
+      }  
+    });
+    expect(response.status()).toBe(201);
+    const body = await response.json();
+    expect(body.message).toBe('Cadastro realizado com sucesso');
+    const getResponse = await request.get(`/usuarios/${userId}`);    
+    console.log(getResponse);
+  });
+
+  test('Excluir usuário', async ({ request }) => {
+    const response = await request.delete(`/usuarios/${userId}`);
+    expect(response.status()).toBe(200);
+    const body = await response.json();
+    expect(body.message).toBe('Nenhum registro excluído');
+  });
+
+});
+
 test('Listar usuários', async ({ request }) => {
   const response = await request.get('/usuarios');
   expect(response.status()).toBe(200);
@@ -26,23 +87,9 @@ test('Listar usuários', async ({ request }) => {
     expect(['true', 'false']).toContain(usuario.administrador);
     expect(typeof usuario._id).toBe('string');
   }
-});
-
-test('Cadastrar usuário com sucesso', async ({ request }) => {
   
-  const response = await request.post('/usuarios', {
-    data: {
-      nome: "Tibicuera da Silva",
-      email: "tibi@qa.com",
-      password: "1234",
-      administrador: "true"
-    }
-  });  
-  expect(response.status()).toBe(201);
-  const body = await response.json();
-  userId = body._id;
-  expect(body).toHaveProperty('_id');
-  expect(body.message).toBe("Cadastro realizado com sucesso");
+  console.log(JSON.stringify(body.usuarios, null, 2));
+  
 });
 
 test('Usuário já cadastrado', async ({ request }) => {
@@ -74,24 +121,3 @@ test('Buscar usuário por ID inexistente', async ({ request }) => {
   const body = await response.json();
   expect(body.message).toBe("Usuário não encontrado");
 });
-
-test('Atualizar usuário criado', async ({ request }) => {
-  expect(userId).toBeTruthy(); 
-  const response = await request.put(`/usuarios/${userId}`, {
-    data: {
-      nome: 'Usuário Atualizado'
-    }
-  });
-  expect(response.status()).toBe(200);
-  const body = await response.json();
-  expect(body.nome).toBe('Usuário Atualizado');
-});
-
-test('Excluir usuário criado', async ({ request }) => {
-  expect(userId).toBeTruthy();
-  const response = await request.delete(`/usuarios/${userId}`);
-  expect(response.status()).toBe(200); 
-});
-
-
-
