@@ -43,10 +43,8 @@ test.describe.serial('CRUD Produtos', () => {
     const body = await response.json();
     prodId = body._id; 
     console.log("ID do produto criado:", prodId);
-
     expect(response.status()).toBe(201);
     expect(body.message).toBe('Cadastro realizado com sucesso');
-
     // validar que realmente foi criado
     const getResponse = await request.get(`/produtos/${prodId}`);
     expect(getResponse.status()).toBe(200);
@@ -112,6 +110,14 @@ test('Listar produtos', async ({ request }) => {
     expect(produto).toHaveProperty('_id');
   }  
   console.log("Produtos:", JSON.stringify(body.produtos, null, 2));
+});
+
+test('Buscar produto por ID ', async ({ request }) => {
+  const Id = 'BeeJh5lz3k6kSIzA';
+  const response = await request.get(`/produtos/${Id}`);  
+  expect(response.status()).toBe(200);
+  const body = await response.json();
+  expect(body.message).toBe("Produto encontrado");
 });
 
 test('Buscar produto por ID inexistente', async ({ request }) => {
