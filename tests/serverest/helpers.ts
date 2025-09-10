@@ -43,3 +43,13 @@ export async function gerarPreco(): number {
 export async function gerarQuantidade() {
   return Math.floor(Math.random() * 50) + 1;
 }
+
+export async function gerarNomeUsuario() {
+  const nomes = [
+    "Pikachu", "Marvel", "Homem-Aranha", "Batman", "Superman", "Mulher-Maravilha",
+    "Deadpool", "Coringa", "Flash", "Lanterna Verde", "Wolverine", "Tempestade",
+    "Ciclope", "Magneto", "Hulk", "Thor", "Loki", "Capitão América", "Viúva Negra",
+    "Gavião Arqueiro", "Doutor Estranho", "Pantera Negra", "Homem de Ferro"
+  ];
+  return nomes[Math.floor(Math.random() * nomes.length)];
+}
