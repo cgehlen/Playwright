@@ -1,7 +1,6 @@
 import path from 'path';
-
 const filePath = path.join('./tests/serverest/assets/gamer.jpg'); 
-//teste carione
+
 
 export async function login(page, email = 'fulano@qa.com', senha = 'teste') {
   await page.getByTestId('email').fill(email);

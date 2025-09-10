@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { gerarDescricao, gerarNomeProduto, gerarPreco, gerarQuantidade, login, upload } from './helpers';
+import { gerarDescricao, gerarNomeProduto, gerarPreco, gerarQuantidade, login, upload } from '../../util/helpers.ts';
 
 
 test.beforeEach(async ({ page }) => {

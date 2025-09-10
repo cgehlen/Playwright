@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import {login } from './helpers';
+import { login } from '../../util/helpers.ts';
 
 test.beforeEach(async ({ page }) => {
   await page.goto('https://front.serverest.dev/login');

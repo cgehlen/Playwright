@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+let token: string;
 
 test('Login senha inválida', async ({ request }) => {
   const response = await request.post('/login', {
@@ -9,6 +10,7 @@ test('Login senha inválida', async ({ request }) => {
   });
   expect(response.status()).toBe(401);
   const body = await response.json();
+  token = body.authorization;
   expect(body.message).toBe("Email e/ou senha inválidos");
 });
 
