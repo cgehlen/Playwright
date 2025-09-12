@@ -83,7 +83,14 @@ test.describe.serial('CRUD Produtos', () => {
     expect(produto.nome).toBe(nome + " atualizado");
   });
 
-  test('Não deve permitir cadastrar produto duplicado', async ({ request }) => {    
+  test('Não deve permitir cadastrar produto duplicado', async ({ request }) => {
+    /**
+    * @description Valida se deixa cadastrar produtos duplicados
+    * 1. Faz post na rota /produtos de um produto
+    * 2. faz post na rota /produtos do mesmo produto
+    * 3. Valida status code 400 
+    * 4. Valida a mensagem de erro
+    */      
     await request.post('/produtos', {
       data: { nome: "Produto QA", preco: 10, descricao: "teste", quantidade: 5 },
       headers: { Authorization: token }
@@ -98,6 +105,12 @@ test.describe.serial('CRUD Produtos', () => {
   });
 
   test('Não deve permitir cadastrar produto sem token', async ({ request }) => {
+    /**
+    * @description Valida se deixa cadastrar produtos sem token
+    * 1. Faz post na rota /produtos de um produto sem token
+    * 2. Valida status code 401
+    * 3 . Valida a mensagem de erro
+    */ 
     const response = await request.post('/produtos', {
       data: { nome: "Sem token", preco: 30, descricao: "teste", quantidade: 1 }
     });
@@ -106,7 +119,13 @@ test.describe.serial('CRUD Produtos', () => {
     expect(body.message).toBe('Token de acesso ausente, inválido, expirado ou usuário do token não existe mais');
   });
 
-  test('Não deve permitir cadastrar produto se não for admin', async ({ request }) => {    
+  test('Não deve permitir cadastrar produto se não for admin', async ({ request }) => { 
+    /**
+    * @description Valida se deixa cadastrar produtos sem ser admin
+    * 1. Faz post na rota /produtos com token de usuário comum
+    * 2. Valida status code 403
+    * 3. Valida a mensagem de erro
+    */    
     const loginResponse = await request.post('/login', {
       data: { email: 'naoadmin@qa.com', password: 'teste' }
     });
@@ -124,7 +143,7 @@ test.describe.serial('CRUD Produtos', () => {
   test('Excluir produto com sucesso', async ({ request }) => {
     /**
     * @description Excluir produtos
-    * 1. Faz delete na rota /produtos
+    * 1. Faz delete na rota /produtos com o id do produto
     * 2. Valida status code 200
     * 3. Valida que o produto foi excluido com sucesso
     */ 
@@ -146,9 +165,9 @@ test.describe.serial('CRUD Produtos', () => {
   test('Excluir produto que faz parte de carrinho', async ({ request }) => {
     /**
     * @description Excluir produtos
-    * 1. Faz delete na rota /produtos
-    * 2. Valida status code 200
-    * 3. Valida que o produto foi excluido com sucesso
+    * 1. Faz delete na rota /produtos de um produto que faz parte de um carrinho
+    * 2. Valida status code 400
+    * 3. Valida a mensagem de erro
     */ 
     const novoResponse = await request.post('/produtos', {
     data: { nome: "ProdutoCarrinho", preco: 50, descricao: "teste", quantidade: 3 },

@@ -144,6 +144,12 @@ test('Usuário já cadastrado', async ({ request }) => {
 });
 
 test('Buscar usuário por ID', async ({ request }) => {
+  /**
+   * @description Tenta cadastrar usuário já existente
+   * 1. Faz get na rota /usuarios com ID existente
+   * 2. Valida status code 200
+   * 3. Valida nome do usuário retornado
+  **/
   const userId = '0uxuPY0cbmQhpEz1'; 
   const response = await request.get(`/usuarios/${userId}`);  
   expect(response.status()).toBe(200);
@@ -152,6 +158,12 @@ test('Buscar usuário por ID', async ({ request }) => {
 });
 
 test('Buscar usuário por ID inexistente', async ({ request }) => {
+  /**
+   * @description Tenta cadastrar usuário já existente
+   * 1. Faz get na rota /usuarios com ID inexistente
+   * 2. Valida status code 400
+   * 3. Valida mensagem "Usuário não encontrado"
+  **/
   const userId = '0uxuPY0cbmQypEb5'; // ID aleatorio
   const response = await request.get(`/usuarios/${userId}`);  
   expect(response.status()).toBe(400);

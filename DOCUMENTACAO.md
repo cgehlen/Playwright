@@ -131,6 +131,26 @@ sendo possível cadastrar apenas 1 carrinho por usuário.
 2. Valida status code 401
 3. Valida a mensagem que token de acesso ausente, inválido, expirado ou usuário do token não existe mais
 
+## Arquivo: `login.spec.ts`
+
+### Caso 1
+@description Tenta login com senha inválida
+1. Faz post na rota /login com senha inválida
+2. Valida status code 401
+3. Valida mensagem "Email e/ou senha inválidos"
+
+### Caso 2
+@description Tenta login com email inválido
+1. Faz post na rota /login com email inválido
+2. Valida status code 401
+3. Valida mensagem "Email e/ou senha inválidos"
+
+### Caso 3
+@description Login com sucesso
+1. Faz post na rota /login com senha válida
+2. Valida status code 200
+3. Valida mensagem "Login realizado com sucesso"
+
 ## Arquivo: `produtos.spec.ts`
 
 ### Caso 1
@@ -146,32 +166,101 @@ sendo possível cadastrar apenas 1 carrinho por usuário.
 3. Valida que o produto foi editado com sucesso
 
 ### Caso 3
-@description Excluir produtos
-1. Faz delete na rota /produtos
-2. Valida status code 200
-3. Valida que o produto foi excluido com sucesso
+@description Valida se deixa cadastrar produtos duplicados
+1. Faz post na rota /produtos de um produto
+2. faz post na rota /produtos do mesmo produto
+3. Valida status code 400 
+4. Valida a mensagem de erro
 
 ### Caso 4
+@description Valida se deixa cadastrar produtos sem token
+1. Faz post na rota /produtos de um produto sem token
+2. Valida status code 401
+3 . Valida a mensagem de erro
+
+### Caso 5
+@description Valida se deixa cadastrar produtos sem ser admin
+1. Faz post na rota /produtos com token de usuário comum
+2. Valida status code 403
+3. Valida a mensagem de erro
+
+### Caso 6
 @description Excluir produtos
-1. Faz delete na rota /produtos
+1. Faz delete na rota /produtos com o id do produto
 2. Valida status code 200
 3. Valida que o produto foi excluido com sucesso
 
-### Caso 5
+### Caso 7
+@description Excluir produtos
+1. Faz delete na rota /produtos de um produto que faz parte de um carrinho
+2. Valida status code 400
+3. Valida a mensagem de erro
+
+### Caso 8
 @description Listar produtos
 1. Faz get na rota /produtos
 2. Valida status code 200
 3. Lista os produtos
 
-### Caso 6
+### Caso 9
 @description Lista produto por id
 1. Faz get na rota /produtos
 2. Valida status code 200
 3. Valida que o produto foi encontrado com sucesso
 
-### Caso 7
+### Caso 10
 @description Lista produtos - id inexistente para validar a mensagem de erro
 1. Faz get na rota /produtos
 2. Valida status code 200
 3. Valida que o produto foi editado com sucesso
+
+## Arquivo: `usuarios.spec.ts`
+
+### Caso 1
+@description Cadastra usuário com sucesso
+1. Faz post na rota /usuarios com dados válidos
+2. Valida status code 201
+3. Valida mensagem "Cadastro realizado com sucesso"
+
+### Caso 2
+@description Atualiza usuário com sucesso
+1. Faz put na rota /usuarios com dados válidos
+2. Valida status code 201
+3. Valida mensagem "Cadastro realizado com sucesso"
+
+### Caso 3
+@description Exclui usuário com sucesso
+1. Faz delete na rota /usuarios com dados válidos
+2. Valida status code 200
+3. Valida mensagem "Registro excluído com sucesso". Aqui neste caso o servidor retorna "Nenhum registro excluído"
+
+### Caso 4
+@description Exibe a listagem de usuários cdastrados
+1. Faz get na rota /usuarios
+2. Valida status code 200
+3. Valida estrutura mínima da resposta
+   - nível superior: quantidade, usuarios
+   - usuários é um array
+   - consistência: quantidade deve ser igual ao tamanho do array usuários
+   - estrutura mínima de um usuário: nome, email, password, administrador, _id
+   - tipos: nome, email, password e _id são strings; administrador é "true" ou "false"
+4. Exibe no console a listagem de usuários
+
+### Caso 5
+@description Tenta cadastrar usuário já existente
+1. Faz post na rota /usuarios com dados de usuário já existente
+2. Valida status code 200
+3. Valida mensagem "Este email já está sendo usado"
+
+### Caso 6
+@description Tenta cadastrar usuário já existente
+1. Faz get na rota /usuarios com ID existente
+2. Valida status code 200
+3. Valida nome do usuário retornado
+
+### Caso 7
+@description Tenta cadastrar usuário já existente
+1. Faz get na rota /usuarios com ID inexistente
+2. Valida status code 400
+3. Valida mensagem "Usuário não encontrado"
 
