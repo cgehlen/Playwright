@@ -4,6 +4,140 @@
 
 # 📖 Documentação dos Testes
 
+## Arquivo: `cadastrar_produtos.serverest.spec.ts`
+
+### Caso 1
+@description O teste valida os campos obrigátorios no cadastro de produtos..
+1. Abre a tela e faz login
+2. Deixa os campos vazios e clica em cadastrar
+3. Valida mensagem "Nome é obrigatório"  
+4. Valida mensagem "Preço é obrigatório"
+5. Valida mensagem "Descrição é obrigatório"
+6. Valida mensagem "Quantidade é obrigatório"
+
+### Caso 2
+@description O teste valida se o campo nome é obrigatório no cadastro de produtos.
+1. Abre a tela e faz login
+2. Deixa o campo nome vazio e clica em cadastrar
+3. Valida mensagem "Nome é obrigatório"
+
+### Caso 3
+@description O teste valida se o campo preço é obrigatório no cadastro de produtos.
+1. Abre a tela e faz login
+2. Deixa o campo preço vazio e clica em cadastrar
+3. Valida mensagem "Preço é obrigatório"
+
+### Caso 4
+@description O teste valida se o campo descrição é obrigatório no cadastro de produtos.
+1. Abre a tela e faz login
+2. Deixa o campo nome descrição e clica em cadastrar
+3. Valida mensagem "Decrição é obrigatório"
+
+### Caso 5
+@description O teste valida se o campo quantidade é obrigatório no cadastro de produtos.
+1. Abre a tela e faz login
+2. Deixa o campo nome quantidade e clica em cadastrar
+3. Valida mensagem "Quantidade é obrigatório"
+
+### Caso 6
+@description Realiza o cadastro de um produto com sucesso.
+1. Abre a tela e faz login
+2. Preenche os campos e clica em cadastrar
+3. Valida se exibie a "Lista dos Produtos"
+
+### Caso 7
+@description O teste valida o cadastro de um produto já existente.
+1. Abre a tela e faz login
+2. Preenche os campos com um produto já cadastrado e clica em cadastrar
+3. Valida mensagem "Já existe produto com esse nome" é exibida
+
+## Arquivo: `cadastrar_usuarios.serverest.spec.ts`
+
+### Caso 1
+@description O teste valida os campos obrigátorios no cadastro de usuários.
+1. Abre a tela e faz login
+2. Deixa os campos vazios e clica em cadastrar
+3. Valida mensagem "Nome é obrigatório"  
+4. Valida mensagem "Email é obrigatório"
+5. Valida mensagem "Password é obrigatório"
+
+### Caso 2
+@description O teste valida se o campo nome é obrigatório no cadastro de usuários.
+1. Abre a tela e faz login
+2. Deixa o campo nome vazio e clica em cadastrar
+3. Valida mensagem "Nome é obrigatório"
+
+### Caso 3
+@description O teste valida se o campo email é obrigatório no cadastro de usuários.
+1. Abre a tela e faz login
+2. Deixa o campo email vazio e clica em cadastrar
+3. Valida mensagem "Email é obrigatório"
+
+### Caso 4
+@description O teste valida se o campo senha é obrigatório no cadastro de usuários.
+1. Abre a tela e faz login
+2. Deixa o campo senha vazio e clica em cadastrar
+3. Valida mensagem "Password é obrigatório"
+
+### Caso 5
+@description O teste realiza o cadastro de um usuário com sucesso.
+1. Abre a tela e faz login
+2. Preenche os campos e clica em cadastrar
+3. Valida se exibie a "Lista dos usuários"
+
+### Caso 6
+@description O teste valida o cadastro de um usuário com email já existente.
+1. Abre a tela e faz login
+2. Preenche os campos com um email já cadastrado e clica em cadastrar
+3. Valida mensagem "Este email já está sendo usado" é exibida
+
+## Arquivo: `listar_usuarios.serverest.spec.ts`
+
+### Caso 1
+@description O teste valida a listagem de usuários.
+1. Abre a tela e faz login
+2. Clica em listar usuários
+3. Valida se exibie a "Lista dos usuários"
+
+## Arquivo: `login_serverest.spec.ts`
+
+### Caso 1
+@description O teste valida o login sem informar o email.
+1. Abre a tela e faz login
+2. Preenche o campo senha e clica em entrar
+3. Valida mensagem "Email é obrigatório" é exibida
+
+### Caso 2
+@description O teste valida o login sem informar a senha.
+1. Abre a tela e faz login
+2. Preenche o campo email e clica em entrar
+3. Valida mensagem "Password é obrigatório" é exibida
+
+### Caso 3
+@description O teste valida o login com email incompleto.
+1. Abre a tela e faz login
+2. Preenche o campo email incompleto e a senha e clica em entrar
+3. Valida mensagem "Insira uma parte "@fulano" esta incompleta" é exibida
+
+### Caso 4
+@description O teste valida o login com senha incorreta.
+1. Abre a tela e faz login
+2. Preenche o campo email e uma senha incorreta e clica em entrar
+3. Valida mensagem "Email e/ou senha inválidos" é exibida
+
+### Caso 5
+@description O teste valida o login com sucesso.
+1. Abre a tela e faz login
+2. Preenche o campo email e a senha corretos e clica em entrar
+3. Valida se o menu é exibido
+
+### Caso 6
+@description O teste valida o logout com sucesso.
+1. Abre a tela e faz login
+2. Preenche o campo email e a senha corretos e clica em entrar
+3. Clica em logout
+4. Valida se a tela de login é exibida
+
 # 📖 Documentação dos Testes
 
 ## Arquivo: `carrinhos.spec.ts`
