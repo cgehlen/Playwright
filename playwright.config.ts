@@ -24,6 +24,13 @@ export default defineConfig({
         baseURL: 'https://serverest.dev', // endpoint da API
       },
     },
+    {
+      name: 'petshop',
+      testDir: './tests/petshop_api',
+      use: {
+        baseURL: 'https://petstore.swagger.io/v2',
+      },
+    }
   ],
   reporter: [['list'], ['html', { outputFolder: 'playwright-report' }]],
 });

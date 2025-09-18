@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { login, upload } from '../../util/helpers.ts';
+import { gerarEmail, gerarNomeUsuario, login, upload } from '../../util/helpers.ts';
 
 
 test.beforeEach(async ({ page }) => {
@@ -83,12 +83,14 @@ test('Cadastro de usuário - cadastro com sucesso', async ({ page }) => {
    * 1. Abre a tela e faz login
    * 2. Preenche os campos e clica em cadastrar
    * 3. Valida se exibie a "Lista dos usuários"
-   **/       
+   **/
+    const nome = await gerarNomeUsuario();
+    const email = await gerarEmail();  
     await page.getByTestId('cadastrar-usuarios').click();
     await page.getByTestId('nome').click();
-    await page.getByTestId('nome').fill('Teste Novo para Automação');    
+    await page.getByTestId('nome').fill(nome);    
     await page.getByTestId('email').click();
-    await page.getByTestId('email').fill('teste12345@qa.com');
+    await page.getByTestId('email').fill(`${email}@qa.com`);
     await page.getByTestId('password').click();
     await page.getByTestId('password').fill('teste12345');
     await page.getByTestId('checkbox').check();

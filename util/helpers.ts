@@ -1,15 +1,16 @@
 import path from 'path';
+import { Page } from 'playwright-core';
 const filePath = path.join('./tests/serverest/assets/gamer.jpg'); 
 
 
-export async function login(page, email = 'fulano@qa.com', senha = 'teste') {
+export async function login(page: Page, email = 'fulano@qa.com', senha = 'teste') {
   await page.getByTestId('email').fill(email);
   await page.getByTestId('senha').fill(senha);
   await page.getByTestId('entrar').click();
   await page.waitForLoadState('networkidle');
 }
 
-export async function upload(page) {
+export async function upload(page: Page) {
   const input = page.locator('input[type="file"]');  
   await input.setInputFiles(filePath);
 }
@@ -35,7 +36,7 @@ export async function gerarDescricao() {
   return descricoes[Math.floor(Math.random() * descricoes.length)];
 }
 
-export async function gerarPreco(): number {
+export async function gerarPreco(): Promise<number> {
   return Math.floor(Math.random() * 100) + 1; // preço entre 1 e 100
 }
 
@@ -51,4 +52,11 @@ export async function gerarNomeUsuario() {
     "Gavião Arqueiro", "Doutor Estranho", "Pantera Negra", "Homem de Ferro"
   ];
   return nomes[Math.floor(Math.random() * nomes.length)];
+}
+export async function gerarEmail() {
+  const email = [
+    "pikachu", "parvel", "spiderman", "batman", "superman", "wonderwoman",
+    "deadpool", "joker", "flash", "bug", "wolverine", "tempestade",
+    "ciclope", "magneto", "hulk", "thor", "loki", "capitao", "blackwidow"];
+  return email[Math.floor(Math.random() * email.length)];
 }
