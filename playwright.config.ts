@@ -1,27 +1,29 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './tests', // dentro dessa pasta você pode ter `frontend` e `api`
   timeout: 30000,
   retries: 0,
-  use: {
-    headless: true,
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
-  },
+  reporter: [['list'], ['html', { outputFolder: 'playwright-report' }]],
+
   projects: [
     {
       name: 'frontend',
       testDir: './tests/serverest',
       use: {
         baseURL: 'https://front.serverest.dev',
+        headless: true,
+        screenshot: 'only-on-failure',
+        video: 'retain-on-failure',
       },
     },
     {
       name: 'api',
       testDir: './tests/serverest_api',
       use: {
-        baseURL: 'https://serverest.dev', // endpoint da API
+        baseURL: 'https://serverest.dev',
+        headless: true,
+        screenshot: 'off',   // não precisa screenshot em API
+        video: 'off',        // idem vídeo
       },
     },
     {
@@ -29,8 +31,10 @@ export default defineConfig({
       testDir: './tests/petshop_api',
       use: {
         baseURL: 'https://petstore.swagger.io/v2',
+        headless: true,
+        screenshot: 'off',
+        video: 'off',
       },
-    }
+    },
   ],
-  reporter: [['list'], ['html', { outputFolder: 'playwright-report' }]],
 });
