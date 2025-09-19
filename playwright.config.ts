@@ -27,14 +27,14 @@ export default defineConfig({
       },
     },
     {
-      name: 'petshop',
-      testDir: './tests/petshop_api',
-      use: {
-        baseURL: 'https://petstore.swagger.io/v2',
-        headless: true,
-        screenshot: 'off',
-        video: 'off',
-      },
-    },
+        name: 'petshop_api',
+        testDir: './tests/petshop_api',
+        use: {
+          baseURL: 'http://localhost:8080/api', 
+          headless: true,
+          screenshot: 'off',
+          video: 'off',
+        },
+     },
   ],
 });

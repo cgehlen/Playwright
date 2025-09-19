@@ -4,6 +4,19 @@ const filePath = path.join('./tests/petshop_api/assets/dog.webp');
 
 let token: string;
 
+test('Retorna quantidades', async ({ request }) => {
+    /**
+     * @description Lista quantidades do inventário
+     * 1. Faz GET na rota /store/inventory
+     * 2. Valida status code 200
+     * 3. 
+     */
+    const response = await request.get('/store/inventory');    
+    const body = await response.json();
+    console.log(body);
+});    
+
+
 test.describe.serial('GET pelos status', () => {
 
   test('Listar pets pelo status - available', async ({ request }) => {
