@@ -27,14 +27,14 @@ export default defineConfig({
       },
     },
     {
-        name: 'petshop_api',
-        testDir: './tests/petshop_api',
+        name: 'reqres',
+        testDir: './tests/reqres',
         use: {
-          baseURL: 'http://localhost:8080/api', 
+          baseURL: 'http://reqres.in/api', 
           headless: true,
           screenshot: 'off',
           video: 'off',
         },
-     },
+     }
   ],
 });
